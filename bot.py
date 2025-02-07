@@ -7,12 +7,15 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 
 intents = discord.Intents.default()
 intents.message_content = True
+intents.guilds = True
+intents.members = True
 client = discord.Client(intents=intents)
 
 processed_messages = set()
 
 @client.event
 async def on_ready():
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="for @someone"))
     print(f"Logged in as {client.user}")
 
 @client.event
@@ -38,7 +41,6 @@ async def on_message(message):
                 )
 
                 await thread.send(f"You were pinged randomly in the message by {message.author.mention}!")
-
                 await message.reply(f"{random_member.mention}")
 
             except discord.errors.HTTPException as e:
