@@ -34,13 +34,6 @@ async def on_message(message):
             random_member = random.choice(members)
 
             try:
-                thread = await message.create_thread(
-                    name=f"@{random_member.name} was pinged by this bot.",
-                    auto_archive_duration=60,
-                    reason="Pinged a random user"
-                )
-
-                await thread.send(f"You were pinged randomly in the message by {message.author.mention}!")
                 await message.reply(f"{random_member.mention}")
 
             except discord.errors.HTTPException as e:
